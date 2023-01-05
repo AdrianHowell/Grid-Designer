@@ -1,0 +1,79 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
+
+import javax.swing.*;
+
+public class GridDesigner extends JFrame {
+    // Declare UI components
+    private JPanel panel;
+    private JLabel purposeLabel;
+    private JTextField purposeField;
+    private JLabel sizeLabel;
+    private JTextField sizeField;
+    private JLabel blocksLabel;
+    private JList blocksList;
+    private JButton designButton;
+    private JTextArea outputArea;
+
+    public GridDesigner() {
+        // Initialize UI components
+        panel = new JPanel();
+        purposeLabel = new JLabel("Purpose: ");
+        purposeField = new JTextField(20);
+        sizeLabel = new JLabel("Size: ");
+        sizeField = new JTextField(20);
+        blocksLabel = new JLabel("Blocks: ");
+        blocksList = new JList();
+        designButton = new JButton("Design Grid");
+        outputArea = new JTextArea();
+
+        // Add components to the panel
+        panel.add(purposeLabel);
+        panel.add(purposeField);
+        panel.add(sizeLabel);
+        panel.add(sizeField);
+        panel.add(blocksLabel);
+        panel.add(blocksList);
+        panel.add(designButton);
+        panel.add(outputArea);
+
+        // Add the panel to the frame
+        add(panel);
+
+        // Set the frame properties
+        setTitle("Grid Designer");
+        setSize(400, 300);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        // Add action listener to the design button
+        designButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Get the purpose, size, and blocks from the UI
+                String purpose = purposeField.getText();
+                String size = sizeField.getText();
+                Object[] blocks = blocksList.getSelectedValues();
+
+                // Design the grid
+                String[] grid = designGrid(purpose, size, blocks);
+
+                // Display the result in the output area
+                outputArea.setText(Arrays.toString(grid));
+            }
+        });
+    }
+
+    public String[] designGrid(String purpose, String size, Object[] blocks) {
+        // Design the grid according to the specified purpose, size, and blocks
+        String[] grid = {"Purpose: " + purpose, "Size: " + size, "Blocks: " + Arrays.toString(blocks)};
+        return grid;
+    }
+
+    public static void main(String[] args) {
+        // Show the grid designer UI
+        GridDesigner gridDesigner = new GridDesigner();
+        gridDesigner.setVisible(true);
+    }
+}
